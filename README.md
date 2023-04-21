@@ -12,7 +12,7 @@ L'environnement utilisé lors de la conception de ce TP est une instance AWS du 
 # How to run
 Pour exécuter les tests MongoDB, il suffit de rouler le script `mongo_script.sh`
 
-Pour exécuter les tests MongoDB, il suffit de rouler le script `hyperledger_script.sh`
+Pour exécuter les tests MongoDB, il suffit de rouler le script `caliper_script.sh`
 
 # Résultats
 Les résultats des tests se retrouvent dans le dossier `results`

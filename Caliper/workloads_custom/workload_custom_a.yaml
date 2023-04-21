@@ -1,0 +1,15 @@
+test:
+  name: tp3-caliper-workload-a
+  description: Workload A
+  workers:
+    type: local
+    number: 5
+  rounds:
+    - label: Read Assets
+      txDuration: 40
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 25
+      workload:
+        module: benchmarks/samples/fabric/marbles/query.js
