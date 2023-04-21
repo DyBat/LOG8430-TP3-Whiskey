@@ -40,24 +40,24 @@ for i in {1..3}
 do
 printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
 printf "Loading workoad A try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P workloads/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
 printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
 printf "Running test workoad A try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P workloads/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
 
 printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
 printf "Loading workoad B try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P workloads/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
 printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
 printf "Running test workoad B try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P workloads/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
 
 printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
 printf "Loading workoad C try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P workloads/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
 printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
 printf "Running test workoad C try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P workloads/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
 
 done
 cd ..

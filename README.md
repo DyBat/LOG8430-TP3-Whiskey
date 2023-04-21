@@ -10,7 +10,9 @@ Le système devrait préférablement avoir un minimum :
 L'environnement utilisé lors de la conception de ce TP est une instance AWS du type t2.large, avec 30GO de stockage et Ubuntu 20.04.
 
 # How to run
-Pour exécuter les tests, il suffit de rouler le script `script.sh`
+Pour exécuter les tests MongoDB, il suffit de rouler le script `mongo_script.sh`
+
+Pour exécuter les tests MongoDB, il suffit de rouler le script `hyperledger_script.sh`
 
 # Résultats
 Les résultats des tests se retrouvent dans le dossier `results`
