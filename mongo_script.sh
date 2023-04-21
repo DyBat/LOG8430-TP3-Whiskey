@@ -1,4 +1,4 @@
-#Install pre-requisites and setup the env
+# Install pre-requisites and setup the env
 sudo apt update
 sudo apt-get install git -y
 sudo apt-get install default-jre -y
@@ -15,14 +15,10 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 curl -O --location https://github.com/brianfrankcooper/YCSB/releases/download/0.17.0/ycsb-0.17.0.tar.gz
 
-# clone the repo for benchmarking
+# Clone YCSB
 git clone http://github.com/brianfrankcooper/YCSB.git
-cd YCSB
-# mvn -pl site.ycsb:redis-binding -am clean package
 
-cd ..
-
-## Run the container for Mongo DB and run the tests
+# Run the tests
 printf "\nRunning Benchmarks on Mongo DB, results can be found in the Mongo folder \n\n"
 docker-compose -f Mongo/docker-compose.yml up -d
 docker exec -it primary mongosh --eval "rs.initiate({
@@ -36,35 +32,20 @@ docker exec -it primary mongosh --eval "rs.initiate({
 })"
 sleep 120
 cd YCSB
-for i in {1..3}
-do
-printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
-printf "Loading workoad A try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
-printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
-printf "Running test workoad A try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
 
-printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
-printf "Loading workoad B try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
-printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
-printf "Running test workoad B try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../results/Mongo/Mongo_Load_Workload_A.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_a -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/Mongo_Run_Workload_A.csv
 
-printf "\n##################################################################################\n" >> ../Mongo/outputLoadAsyncMongo.csv
-printf "Loading workoad C try $i\n" >> ../Mongo/outputLoadAsyncMongo.csv
-./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../Mongo/outputLoadAsyncMongo.csv
-printf "\n##################################################################################\n" >> ../Mongo/outputRunAsyncMongo.csv
-printf "Running test workoad C try $i\n" >> ../Mongo/outputRunAsyncMongo.csv
-./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/outputRunAsyncMongo.csv
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../results/Mongo/Mongo_Load_Workload_B.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_b -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/Mongo_Run_Workload_B.csv
 
-done
+./bin/ycsb load mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSett >> ../results/Mongo/Mongo_Load_Workload_C.csv
+./bin/ycsb run mongodb -s -P ../Mongo/workloads_custom/workload_custom_c -p recordcount=1000 -p mongodb.upsert=true -p mongodb.url=mongodb://primary:27017,secondary1:27017,secondary2:27017,secondary3:27017/?replicaSet=myReplicaSe >> ../Mongo/Mongo_Run_Workload_C.csv
+
 cd ..
 docker-compose -f Mongo/docker-compose.yml down -v
 printf "\nFinished benchmarking Mongo DB with YCSB \n\n"
-#
-####========================================================================##
+
 ## Cleaning up everything
 deactivate
 rm -rf YCSB
